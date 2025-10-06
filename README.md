@@ -1,4 +1,4 @@
-# Friends Stream - Simple Video Messaging MVP
+# Friends Stream - Simple Video Messaging MVPз
 
 A lightweight, real-time video messaging web application for a small group of friends (Chris, Nick, and Angel) to share live video messages with each other.
 
