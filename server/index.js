@@ -6,14 +6,18 @@ import { getAllVideos, createVideo } from './db.js'
 
 const app = express()
 const httpServer = createServer(app)
+
+// Allow CORS from environment variable or default
+const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:3000'
+
 const io = new Server(httpServer, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: CORS_ORIGIN,
     methods: ['GET', 'POST']
   }
 })
 
-app.use(cors())
+app.use(cors({ origin: CORS_ORIGIN }))
 app.use(express.json())
 
 // Store active streams and users
@@ -131,9 +135,10 @@ io.on('connection', (socket) => {
   })
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 
-httpServer.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`)
+httpServer.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on http://0.0.0.0:${PORT}`)
   console.log(`Socket.IO server ready for WebRTC signaling`)
+  console.log(`CORS origin: ${CORS_ORIGIN}`)
 })

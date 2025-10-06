@@ -5,7 +5,12 @@ import { dirname, join } from 'path'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-const db = new Database(join(__dirname, 'videos.db'))
+// Use environment variable for database path or default
+const DATABASE_PATH = process.env.DATABASE_PATH || join(__dirname, 'videos.db')
+
+console.log(`Database path: ${DATABASE_PATH}`)
+
+const db = new Database(DATABASE_PATH)
 
 // Initialize database schema
 db.exec(`
